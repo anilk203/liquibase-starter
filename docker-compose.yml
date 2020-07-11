@@ -1,0 +1,58 @@
+version: '3.6'
+services:
+  liquibase:
+    container_name: liquibase
+    restart: always
+    build: 
+      context: ./liquibase
+      dockerfile: Dockerfile_liquibase
+    volumes:
+      - ./liquibase/:/home/project/liquibase-starter     
+    env_file:
+      - ${ENV_FILE}        
+    ports:
+      - "8003:8003"       
+    command: gunicorn -w 1 -b :8003 --log-level=debug app:app    
+    networks:
+      - liquibase-starter    
+
+  
+  mssql2017:
+    container_name: mssql2017
+    build: 
+      context: ./mssql
+      dockerfile: Dockerfile_mssql2017
+    restart: always
+    ports:
+        - "1437:1433"    
+    env_file:
+      - ${ENV_FILE}         
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=${SA_PASSWORD}
+        - MSSQL_PID=Standard  
+    networks:
+      - liquibase-starter   
+      
+  mssql2019:
+    container_name: mssql2019
+    build: 
+      context: ./mssql
+      dockerfile: Dockerfile_mssql2019
+    restart: always
+    ports:
+        - "1439:1433"  
+    env_file:
+      - ${ENV_FILE}           
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=${SA_PASSWORD}
+        - MSSQL_PID=Standard      
+    networks:
+      - liquibase-starter               
+          
+           
+          
+networks:
+  liquibase-starter:
+    external: true

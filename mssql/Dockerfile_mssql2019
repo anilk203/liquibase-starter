@@ -1,0 +1,2 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+MAINTAINER ANIL KUMAR DEGALA <anilk203@gmail.com>
