@@ -2,6 +2,24 @@
 ###### Add SA_PASSWORD value in liquibase-starter.env
 
 # Step 2
+
+##### Add dbchangelog.xml files
+
+```
+cd $PROJECT/liquibase/changelog
+
+```
+
+
+# Step 3
+
+##### Add liquibase.properties files
+```
+cd $PROJECT/liquibase/configs
+
+```
+
+# Step 4
 ```
 docker-compose down && docker-compose up --build -d
 

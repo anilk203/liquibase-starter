@@ -3,6 +3,4 @@ liquibase/liquibase*.properties
 .pydevproject
 *.pyc
 .settings
-temp
-liquibase/configs/*.properties
-liquibase/changelog/*.xml
+temp/*.*
