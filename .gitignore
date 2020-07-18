@@ -4,3 +4,4 @@ liquibase/liquibase*.properties
 *.pyc
 .settings
 temp/*.*
+temp/restart-ls.sh
