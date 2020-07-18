@@ -49,9 +49,45 @@ services:
         - SA_PASSWORD=${SA_PASSWORD}
         - MSSQL_PID=Standard      
     networks:
-      - liquibase-starter               
+      - liquibase-starter    
+      
+  mysqldb8:
+      container_name: mysqldb8
+      build:
+        context: ./mysql
+        dockerfile: Dockerfile_mysql8
+      restart: always
+      command: mysqld --sql_mode="STRICT_ALL_TABLES"
+      environment:
+        MYSQL_ROOT_PASSWORD: mysql      
+      env_file:
+       - ${ENV_FILE}
+      ports:
+       - "3310:3306"
+      volumes:
+      - mysql-data:/var/lib/mysql
+      networks:
+       - liquibase-starter        
+       
+  postgresql:
+    container_name: postgresql
+    build:
+      context: ./postgresql
+      dockerfile: Dockerfile_postgresql
+    container_name: postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - ${ENV_FILE}      
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD} 
+    networks:
+      - liquibase-starter         
           
            
+volumes:
+  mysql-data:           
           
 networks:
   liquibase-starter:

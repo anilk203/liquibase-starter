@@ -1,0 +1,2 @@
+FROM postgres
+MAINTAINER ANIL KUMAR DEGALA <anilk203@gmail.com>
