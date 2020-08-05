@@ -40,7 +40,8 @@ RUN curl -o /liquibase/lib/sqlite.jar https://repo1.maven.org/maven2/org/xerial/
 
 
 user root
-RUN apt-get update
+RUN apt-get update && apt-get install -y alien
+RUN apt-get install git -y
 RUN apt-get install vim -y 
 RUN apt-get install openjdk-13-jdk -y 
 RUN apt-get install python-pip -y
@@ -50,6 +51,8 @@ COPY requirements.txt /home/project/liquibase-starter
 RUN pip install --upgrade pip --no-cache-dir -r requirements.txt
 
 COPY ./configs/ /liquibase/lib/
+COPY ./scripts/perform-migration.sh /opt/perform-migration.sh
+RUN chmod 777 /opt/perform-migration.sh
 
 COPY . /home/project/liquibase-starter 
 RUN echo "export PATH=$PATH:/liquibase" > ~/.bashrc 
