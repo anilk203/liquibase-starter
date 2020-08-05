@@ -50,7 +50,6 @@ COPY requirements.txt /home/project/liquibase-starter
 RUN pip install --upgrade pip --no-cache-dir -r requirements.txt
 
 COPY ./configs/ /liquibase/lib/
-COPY ./changelog/ /liquibase/lib/
 
 COPY . /home/project/liquibase-starter 
 RUN echo "export PATH=$PATH:/liquibase" > ~/.bashrc 
